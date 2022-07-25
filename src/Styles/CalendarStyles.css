@@ -1,0 +1,45 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-areas: "col1 col2 col3 col4 col5 col6";
+  /* gap: 0.5rem; */
+  height: 100vh;
+  width: 100%;
+}
+
+.container-column {
+  /* border: 0.1rem solid black; */
+}
+
+.container-column > p {
+  padding: 1rem;
+}
+
+.container-column-box {
+  border-bottom: 0.1rem solid var(--color-grey);
+  display: flex;
+  justify-content: flex-start;
+  height: 20vh;
+  padding: 1rem 0 0 1rem;
+}
+
+.container-column-box:hover {
+  background-color: var(--color-overlay);
+  color: var(--color-black);
+  transition: 0.3s;
+}
+
+.current-day {
+  /* font-weight: bolder; */
+  background-color: var(--color-overlay);
+}
+
+.container-column-box-empty {
+  border-bottom: 0.1rem solid var(--color-grey);
+  /* background-color: var(--color-grey); */
+  height: 20vh;
+}
+
+.container-column-box-empty::before {
+  content: "\00a0";
+}

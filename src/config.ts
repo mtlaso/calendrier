@@ -1,0 +1,1 @@
+export const MAX_LENGTH_EVENT = 256;
