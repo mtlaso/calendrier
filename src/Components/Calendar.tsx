@@ -11,14 +11,10 @@ import {
 } from "../Helpers/CreateDaysStructures";
 import { ICalendar } from "../Interfaces/ICalendar";
 
-const Calendar = ({
-  dateDisplay,
-  paddingDays,
-  days,
-  onAddEvent,
-}: ICalendar) => {
+const Calendar = ({ dateDisplay, paddingDays, days, onAddEvent, calendarEvents }: ICalendar) => {
   return (
     <>
+      {/* Créer le conteneur du calendrier */}
       {(() => {
         // Éffacer ancien calendrier si il existe
         document.getElementById("container")?.remove();
@@ -36,7 +32,8 @@ const Calendar = ({
         }
       })()}
 
-      {days.map((day, index) => {
+      {/* Ajouter les jours au calendrier  */}
+      {days.forEach((day, index) => {
         if (index === 0) {
           CreateSundayStructure();
           CreateMondayStructure();
@@ -49,13 +46,14 @@ const Calendar = ({
           // Afficher les padding days (gris)
           for (let i = 0; i < paddingDays.length; i++) {
             let dayToPad = paddingDays[i];
-            dayToPad = dayToPad.slice(0, 3).toLocaleLowerCase();
+            dayToPad = dayToPad.slice(0, 3).toLocaleLowerCase(); // Trouver les 3 premières lettres du jours (en anglais)
 
+            // Créer le padding day
             const div = document.createElement("div");
             div.classList.add("container-column-box-empty");
-            document
-              .getElementById(`container-column-${dayToPad}`)
-              ?.appendChild(div);
+
+            // Ajouter le padding day (boite vide) à la bonne colonne
+            document.getElementById(`container-column-${dayToPad}`)?.appendChild(div);
           }
         }
 
@@ -161,6 +159,35 @@ const Calendar = ({
             break;
           default:
             break;
+        }
+      })}
+
+      {/* Afficher les évènements sur le calendrier */}
+      {calendarEvents.forEach((event, index) => {
+        // Trouver le mois où nous sommes
+        // L'index 10 doit normalement toujours exister car il y a au minimum 28 jours d'un un mois
+        const currentMonth = days[10].month;
+        const currentEventMonth = event.date.split("-")[1];
+        const currentEventDay = event.date.split("-")[2];
+        const SmallTitle = (title: string) => {
+          if (title.trim().length > 50) {
+            return `${event.title.slice(0, 30)}...`;
+          } else {
+            return event.title;
+          }
+        };
+
+        // Afficher évènement sur le calendrier
+        if (Number(currentEventMonth) === currentMonth) {
+          const box = document.getElementById(`container-column-${currentEventDay}`);
+
+          // Créer évènement
+          const div = document.createElement("div");
+          div.innerText = SmallTitle(event.title);
+          div.classList.add("calendar-event");
+
+          // Afficher évènement
+          box?.appendChild(div);
         }
       })}
     </>
