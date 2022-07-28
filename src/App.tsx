@@ -7,6 +7,7 @@ import "./Styles/ModalStyles.css";
 
 import { IDay } from "./Interfaces/IDay";
 import { IEvent } from "./Interfaces/IEvent";
+import { IWeekDays } from "./Interfaces/IWeekDays";
 
 import Header from "./Components/Header";
 import Calendar from "./Components/Calendar";
@@ -21,26 +22,25 @@ import { MAX_LENGTH_EVENT } from "./config";
 function App() {
   const dt = useRef(new Date()); // Empêcher de 're-render' à chaque fois
 
+  const [eventText, setEventText] = useState<string>("");
   const [showAddEventModal, setShowAddEventModal] = useState<"block" | "none">("none");
   const [dateOfEvent, setDateOfEvent] = useState<{
     year: number;
     month: number;
     date: number;
   } | null>(null);
-  const [eventText, setEventText] = useState<string>("");
 
   const [days, setDays] = useState<IDay[]>([]);
-  const [paddingDays, setPaddingDays] = useState<string[]>([]);
+  const [paddingDays, setPaddingDays] = useState<IWeekDays[]>([]);
   const [dateDisplay, setDateDisplay] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  // Utilisé dans "LoadCalendar" pour gérer le changement de mois/année
   const [nav, setNav] = useState({
+    // Utilisé dans "LoadCalendar" pour gérer le changement de mois/année
     month: dt.current.getMonth(),
     year: dt.current.getFullYear(),
   });
 
-  // Charger les événements du calendrier
+  // Charger les événements du calendrier (Recoil Js)
   const [calendarEvents, setCalendarEvents] = useRecoilState(eventsState);
 
   // Charger le calendrier
@@ -48,7 +48,7 @@ function App() {
     setIsLoading(true);
     const [_paddingDays, _days, _dateDisplay] = LoadCalendar(nav);
 
-    setPaddingDays(_paddingDays as string[]);
+    setPaddingDays(_paddingDays as IWeekDays[]);
     setDays(_days as IDay[]);
     setDateDisplay(_dateDisplay as string);
 

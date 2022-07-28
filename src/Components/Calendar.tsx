@@ -9,14 +9,25 @@ import {
   CreateTuesdayStructure,
   CreateWednesayStructure,
 } from "../Helpers/CreateDaysStructures";
+
 import { ICalendar } from "../Interfaces/ICalendar";
 
+/**
+ * Afficher (render) le calendrier
+ *
+ * @param {string} dateDisplay La date à afficher sur le header (ex: July 2022)
+ * @param {IWeekDays[]} paddingDays Liste des jours avant le premier du mois (les cases vides sur le calendrier)
+ * @param {IDay[]} days Liste des jours dans un mois donné
+ * @param {Function} onAddEvent Fonction exécuté pour l'ajout d'un évènemnt
+ * @param {IEvent[]} calendarEvents Évènements de calendrier de l'utilisateur
+ */
+/** */
 const Calendar = ({ dateDisplay, paddingDays, days, onAddEvent, calendarEvents }: ICalendar) => {
   return (
     <>
       {/* Créer le conteneur du calendrier */}
       {(() => {
-        // Éffacer ancien calendrier si il existe
+        // Éffacer l'ancien calendrier si il existe
         document.getElementById("container")?.remove();
 
         // Créer le squelette de la page
@@ -25,15 +36,16 @@ const Calendar = ({ dateDisplay, paddingDays, days, onAddEvent, calendarEvents }
         div.id = "container";
         document.getElementById("root")?.appendChild(div);
 
-        // Initialiser la date (header)
+        // Initialiser la date "dateDisplay" dans le header
         const headerDate = document.getElementById("header-date");
         if (headerDate) {
           headerDate.textContent = dateDisplay;
         }
       })()}
 
-      {/* Ajouter les jours au calendrier  */}
+      {/* Afficher les jours sur le calendrier  */}
       {days.forEach((day, index) => {
+        // Créer les colonnes Sunday, Monday, Tuesday, etc.
         if (index === 0) {
           CreateSundayStructure();
           CreateMondayStructure();
@@ -43,17 +55,18 @@ const Calendar = ({ dateDisplay, paddingDays, days, onAddEvent, calendarEvents }
           CreateFridayStructure();
           CreateSaturdayStructure();
 
-          // Afficher les padding days (gris)
+          // Afficher les padding days (les cases vides)
           for (let i = 0; i < paddingDays.length; i++) {
-            let dayToPad = paddingDays[i];
-            dayToPad = dayToPad.slice(0, 3).toLocaleLowerCase(); // Trouver les 3 premières lettres du jours (en anglais)
+            // alert(EWeekDays[paddingDays[i]]);
+            // let day = paddingDays[i];
+            const day = paddingDays[i].slice(0, 3).toLocaleLowerCase(); // Trouver les 3 premières lettres du jours (en anglais)
 
             // Créer le padding day
             const div = document.createElement("div");
             div.classList.add("container-column-box-empty");
 
             // Ajouter le padding day (boite vide) à la bonne colonne
-            document.getElementById(`container-column-${dayToPad}`)?.appendChild(div);
+            document.getElementById(`container-column-${day}`)?.appendChild(div);
           }
         }
 
@@ -73,6 +86,7 @@ const Calendar = ({ dateDisplay, paddingDays, days, onAddEvent, calendarEvents }
 
             document.getElementById(`container-column-sun`)?.appendChild(div);
             break;
+
           case "Monday":
             const div1 = document.createElement("div");
             div1.id = `container-column-${day.date}`;
