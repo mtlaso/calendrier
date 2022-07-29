@@ -27,7 +27,12 @@ export interface ICalendar {
   calendarEvents: IEvent[];
 
   /**
-   * Fonction appelé lors de l'ajout d'un évènement
+   * Fonction appelée lors de l'ajout d'un évènement
    */
   onAddEvent: (year: number, month: number, date: number) => void;
+
+  /**
+   * Fonction appeléE lors de la modification d'un évènement
+   */
+  onUpdateEvent: (eventId: string) => void;
 }

@@ -35,11 +35,6 @@ export interface IDay {
   isCurrentDay: boolean;
 
   /**
-   * Évènements de l'utilisateur
-   */
-  event: IEvent[] | null;
-
-  /**
    * True si c'est un padding day (case vide)
    */
   isPadding: boolean;

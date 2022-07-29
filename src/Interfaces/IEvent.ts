@@ -3,7 +3,7 @@
  */
 export interface IEvent {
   /**
-   * Identifiant
+   * Identifiant de l'évènement
    */
   id: string;
 

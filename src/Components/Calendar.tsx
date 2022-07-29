@@ -8,7 +8,7 @@ import {
   CreateThursdayStructure,
   CreateTuesdayStructure,
   CreateWednesayStructure,
-} from "../Helpers/CreateDaysStructures";
+} from "../Helpers/create-days-structure";
 
 import { ICalendar } from "../Interfaces/ICalendar";
 
@@ -18,11 +18,12 @@ import { ICalendar } from "../Interfaces/ICalendar";
  * @param {string} dateDisplay La date à afficher sur le header (ex: July 2022)
  * @param {IWeekDays[]} paddingDays Liste des jours avant le premier du mois (les cases vides sur le calendrier)
  * @param {IDay[]} days Liste des jours dans un mois donné
- * @param {Function} onAddEvent Fonction exécuté pour l'ajout d'un évènemnt
  * @param {IEvent[]} calendarEvents Évènements de calendrier de l'utilisateur
+ * @param {Function} onAddEvent Fonction exécuté pour l'ajout d'un évènemnt
+ * @param {Function} onUpdateEvent Fonction exécuté pour modifier un évènemnt
  */
 /** */
-const Calendar = ({ dateDisplay, paddingDays, days, onAddEvent, calendarEvents }: ICalendar) => {
+const Calendar = ({ dateDisplay, paddingDays, days, calendarEvents, onAddEvent, onUpdateEvent }: ICalendar) => {
   return (
     <>
       {/* Créer le conteneur du calendrier */}
@@ -81,7 +82,7 @@ const Calendar = ({ dateDisplay, paddingDays, days, onAddEvent, calendarEvents }
             } else {
               div.classList.add("container-column-box");
             }
-            div.onclick = () => onAddEvent(day.year, day.month, day.date);
+            div.ondblclick = () => onAddEvent(day.year, day.month, day.date);
             div.appendChild(document.createTextNode(day.date.toString()));
 
             document.getElementById(`container-column-sun`)?.appendChild(div);
@@ -97,7 +98,7 @@ const Calendar = ({ dateDisplay, paddingDays, days, onAddEvent, calendarEvents }
               div1.classList.add("container-column-box");
             }
             div1.appendChild(document.createTextNode(day.date.toString()));
-            div1.onclick = () => onAddEvent(day.year, day.month, day.date);
+            div1.ondblclick = () => onAddEvent(day.year, day.month, day.date);
 
             document.getElementById(`container-column-mon`)?.appendChild(div1);
             break;
@@ -111,7 +112,7 @@ const Calendar = ({ dateDisplay, paddingDays, days, onAddEvent, calendarEvents }
               div2.classList.add("container-column-box");
             }
             div2.appendChild(document.createTextNode(day.date.toString()));
-            div2.onclick = () => onAddEvent(day.year, day.month, day.date);
+            div2.ondblclick = () => onAddEvent(day.year, day.month, day.date);
 
             document.getElementById("container-column-tue")?.appendChild(div2);
             break;
@@ -125,7 +126,7 @@ const Calendar = ({ dateDisplay, paddingDays, days, onAddEvent, calendarEvents }
               div3.classList.add("container-column-box");
             }
             div3.appendChild(document.createTextNode(day.date.toString()));
-            div3.onclick = () => onAddEvent(day.year, day.month, day.date);
+            div3.ondblclick = () => onAddEvent(day.year, day.month, day.date);
 
             document.getElementById(`container-column-wed`)?.appendChild(div3);
             break;
@@ -139,7 +140,7 @@ const Calendar = ({ dateDisplay, paddingDays, days, onAddEvent, calendarEvents }
               div4.classList.add("container-column-box");
             }
             div4.appendChild(document.createTextNode(day.date.toString()));
-            div4.onclick = () => onAddEvent(day.year, day.month, day.date);
+            div4.ondblclick = () => onAddEvent(day.year, day.month, day.date);
 
             document.getElementById("container-column-thu")?.appendChild(div4);
             break;
@@ -153,7 +154,7 @@ const Calendar = ({ dateDisplay, paddingDays, days, onAddEvent, calendarEvents }
               div5.classList.add("container-column-box");
             }
             div5.appendChild(document.createTextNode(day.date.toString()));
-            div5.onclick = () => onAddEvent(day.year, day.month, day.date);
+            div5.ondblclick = () => onAddEvent(day.year, day.month, day.date);
 
             document.getElementById("container-column-fri")?.appendChild(div5);
             break;
@@ -167,7 +168,7 @@ const Calendar = ({ dateDisplay, paddingDays, days, onAddEvent, calendarEvents }
               div6.classList.add("container-column-box");
             }
             div6.appendChild(document.createTextNode(day.date.toString()));
-            div6.onclick = () => onAddEvent(day.year, day.month, day.date);
+            div6.ondblclick = () => onAddEvent(day.year, day.month, day.date);
 
             document.getElementById("container-column-sat")?.appendChild(div6);
             break;
@@ -183,6 +184,8 @@ const Calendar = ({ dateDisplay, paddingDays, days, onAddEvent, calendarEvents }
         const currentMonth = days[10].month;
         const currentEventMonth = event.date.split("-")[1];
         const currentEventDay = event.date.split("-")[2];
+
+        // Retourne le titre abrégé d'un évènement
         const SmallTitle = (title: string) => {
           if (title.trim().length > 50) {
             return `${event.title.slice(0, 30)}...`;
@@ -199,6 +202,7 @@ const Calendar = ({ dateDisplay, paddingDays, days, onAddEvent, calendarEvents }
           const div = document.createElement("div");
           div.innerText = SmallTitle(event.title);
           div.classList.add("calendar-event");
+          div.onclick = () => onUpdateEvent(event.id);
 
           // Afficher évènement
           box?.appendChild(div);

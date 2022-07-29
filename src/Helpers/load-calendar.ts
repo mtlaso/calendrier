@@ -52,7 +52,6 @@ export function LoadCalendar(nav: INav) {
       dateString: dateString,
       dayName: dayName,
       isCurrentDay: today.getDate() === day,
-      event: null,
       isPadding: false,
     });
   }

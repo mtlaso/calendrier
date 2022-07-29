@@ -1,3 +1,5 @@
+@import url(calendar-events-styles.css);
+
 .container {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -32,15 +34,6 @@
 
 .container-column-box.current-day {
   background-color: var(--color-overlay);
-}
-
-.container-column-box .calendar-event {
-  color: var(--color-white);
-  margin-top: 0.5rem;
-  font-size: small;
-  background-color: var(--color-blue);
-  padding: 0.2rem 0.4rem 0.2rem 0.4rem;
-  border-radius: 1rem;
 }
 
 .container-column-box-empty {

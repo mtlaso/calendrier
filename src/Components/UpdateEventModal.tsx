@@ -2,7 +2,7 @@ import React from "react";
 
 import "../Styles/modal-styles.css";
 
-const AddEventModal = (props: { children: React.ReactNode; display: "block" | "none" }) => {
+const UpdateEventModal = (props: { children: React.ReactNode; display: "block" | "none" }) => {
   return (
     <div
       className="modal-container"
@@ -18,4 +18,4 @@ const AddEventModal = (props: { children: React.ReactNode; display: "block" | "n
   );
 };
 
-export default AddEventModal;
+export default UpdateEventModal;
