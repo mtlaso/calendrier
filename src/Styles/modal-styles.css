@@ -18,6 +18,7 @@
 
 .modal-content h1 {
   margin-bottom: 1rem;
+  user-select: none;
 }
 
 .modal-content textarea {

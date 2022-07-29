@@ -299,8 +299,6 @@ function App() {
 
 export default App;
 
-// TODO : Ajouter DeleteEventModal
-// TODO : Pouvoir bouger les Modals
 // TODO : Ajouter tutoriel
 // TODO : Filmer un gif du projet
 // TODO : CSS prefix
