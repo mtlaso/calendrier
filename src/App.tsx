@@ -372,5 +372,4 @@ function App() {
 
 export default App;
 
-// TODO : CSS prefix
 // TODO : Host le projet

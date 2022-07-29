@@ -36,6 +36,7 @@ button {
 
 button:hover {
   background-color: var(--color-grey);
+  -webkit-transition: 0.1s;
   transition: 0.1s;
 }
 
@@ -44,8 +45,13 @@ button.button-cancel:hover {
 }
 
 header {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -ms-flex-pack: distribute;
   justify-content: space-around;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   background-color: var(--color-black);
   width: 100vw;

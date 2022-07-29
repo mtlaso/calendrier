@@ -1,7 +1,16 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 @import url(calendar-events-styles.css);
 
 .container {
+  display: -ms-grid;
   display: grid;
+  /* -ms-grid-columns: (1fr) [7]; */
   grid-template-columns: repeat(7, 1fr);
   grid-template-areas: "col1 col2 col3 col4 col5 col6";
   /* gap: 0.5rem; */
@@ -14,10 +23,20 @@
 }
 
 .container-column-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
   justify-content: flex-start;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
   align-items: flex-start;
+  -ms-flex-line-pack: start;
   align-content: flex-start;
 
   height: 20vh;
@@ -29,6 +48,8 @@
 .container-column-box:hover {
   background-color: var(--color-overlay);
   color: var(--color-black);
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
   transition: 0.3s;
 }
 
