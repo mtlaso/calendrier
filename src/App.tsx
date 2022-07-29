@@ -372,7 +372,5 @@ function App() {
 
 export default App;
 
-// TODO : Ajouter tutoriel
-// TODO : Filmer un gif du projet
 // TODO : CSS prefix
 // TODO : Host le projet
