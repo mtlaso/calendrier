@@ -19,11 +19,21 @@ import { ICalendar } from "../Interfaces/ICalendar";
  * @param {IWeekDays[]} paddingDays Liste des jours avant le premier du mois (les cases vides sur le calendrier)
  * @param {IDay[]} days Liste des jours dans un mois donné
  * @param {IEvent[]} calendarEvents Évènements de calendrier de l'utilisateur
- * @param {Function} onAddEvent Fonction exécuté pour l'ajout d'un évènemnt
- * @param {Function} onUpdateEvent Fonction exécuté pour modifier un évènemnt
+ * @param {Function} onAddEvent Fonction exécutée pour l'ajout d'un évènement
+ * @param {Function} onUpdateEvent Fonction exécutée pour modifier un évènement
+ * @param {Function} onDeleteEvent Fonction exécutée pour supprimer un évènement
+ *
  */
 /** */
-const Calendar = ({ dateDisplay, paddingDays, days, calendarEvents, onAddEvent, onUpdateEvent }: ICalendar) => {
+const Calendar = ({
+  dateDisplay,
+  paddingDays,
+  days,
+  calendarEvents,
+  onAddEvent,
+  onUpdateEvent,
+  onDeleteEvent,
+}: ICalendar) => {
   return (
     <>
       {/* Créer le conteneur du calendrier */}
@@ -202,7 +212,12 @@ const Calendar = ({ dateDisplay, paddingDays, days, calendarEvents, onAddEvent, 
           const div = document.createElement("div");
           div.innerText = SmallTitle(event.title);
           div.classList.add("calendar-event");
-          div.onclick = () => onUpdateEvent(event.id);
+          div.onclick = () => onUpdateEvent(event.id); // Onclick pour modifier l'évènement
+          div.addEventListener("contextmenu", (e) => {
+            // Right click pour supprimer l'évènement
+            e.preventDefault();
+            onDeleteEvent(event.id);
+          });
 
           // Afficher évènement
           box?.appendChild(div);

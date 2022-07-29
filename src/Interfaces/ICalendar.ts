@@ -32,7 +32,12 @@ export interface ICalendar {
   onAddEvent: (year: number, month: number, date: number) => void;
 
   /**
-   * Fonction appeléE lors de la modification d'un évènement
+   * Fonction appelée lors de la modification d'un évènement
    */
   onUpdateEvent: (eventId: string) => void;
+
+  /**
+   * Fonction appelée lors de la supression d'un évènement
+   */
+  onDeleteEvent: (eventId: string) => void;
 }

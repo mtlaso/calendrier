@@ -2,6 +2,9 @@ import React from "react";
 
 import "../Styles/modal-styles.css";
 
+/**
+ * Modal de modification d'un événement
+ */
 const UpdateEventModal = (props: { children: React.ReactNode; display: "block" | "none" }) => {
   return (
     <div

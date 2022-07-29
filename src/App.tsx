@@ -12,6 +12,7 @@ import Header from "./Components/Header";
 import Calendar from "./Components/Calendar";
 import AddEventModal from "./Components/AddEventModal";
 import UpdateEventModal from "./Components/UpdateEventModal";
+import DeleteEventModal from "./Components/DeleteEventModal";
 
 import { LoadCalendar } from "./Helpers/load-calendar";
 
@@ -33,6 +34,10 @@ function App() {
   const [showUpdateEventModal, setShowUpdateEventModal] = useState<"block" | "none">("none");
   const [updateModalText, setUpdateModalText] = useState<string>("");
   const [eventIdToUpdate, setEventIdToUpdate] = useState<string | null>(null);
+
+  const [showDeleteEventModal, setShowDeleteEventModal] = useState<"block" | "none">("none");
+  const [deleteModalText, setDeleteModalText] = useState<string>("");
+  const [eventIdToDelete, setEventIdToDelete] = useState<string | null>(null);
 
   const [days, setDays] = useState<IDay[]>([]);
   const [paddingDays, setPaddingDays] = useState<IWeekDays[]>([]);
@@ -120,20 +125,11 @@ function App() {
     // Afficher texte
     setUpdateModalText(event?.title!);
 
-    alert(`event : ${JSON.stringify(event)}`);
-
     // Sauvegarder id de l'évènement à modifier
     setEventIdToUpdate(eventId);
 
     // Afficher update modal
     setShowUpdateEventModal("block");
-
-    // TODO : Ajouter DeleteEventModal
-    // TODO : Pouvoir bouger les Modals
-    // TODO : Ajouter tutoriel
-    // TODO : Filmer un gif du projet
-    // TODO : CSS prefix
-    // TODO : Host le projet
   };
 
   // Modifier un évènement
@@ -165,6 +161,40 @@ function App() {
     // Fermer UpdateEventModal
     setShowUpdateEventModal("none");
   };
+
+  // Afficher modal DeleteEventModal
+  const OpenDeleteEventModal = (eventId: string) => {
+    // Trouver évènement à supprimer
+    const event = calendarEvents.find((event) => event.id === eventId);
+
+    // Afficher texte
+    setDeleteModalText(event?.title!);
+
+    // Sauvegarder id de l'évènement à supprimer
+    setEventIdToDelete(eventId);
+
+    // Afficher delete modal
+    setShowDeleteEventModal("block");
+  };
+
+  // Supprimer un évènement
+  const DeleteEvent = () => {
+    // Trouver évènement à supprimer
+    const index = calendarEvents.findIndex((event) => event.id === eventIdToDelete);
+
+    // Supprimer l'évènement. Calendrier est rafréchit automatiquement grâce à "useRecoilState"
+    setCalendarEvents([...calendarEvents.slice(0, index), ...calendarEvents.slice(index + 1)]);
+
+    // Effacer texte
+    setDeleteModalText("");
+
+    // Effacer id de l'évènement à supprimer
+    setEventIdToDelete(null);
+
+    // Fermer DeleteEventModal
+    setShowDeleteEventModal("none");
+  };
+
   return (
     <>
       <AddEventModal display={showAddEventModal}>
@@ -229,6 +259,25 @@ function App() {
         </div>
       </UpdateEventModal>
 
+      <DeleteEventModal display={showDeleteEventModal}>
+        <div className="modal-content">
+          <h1>Delete event</h1>
+          <p>Are you sure you want to delete this event?</p>
+          <p>Title : {deleteModalText}</p>
+        </div>
+        <hr />
+        <div className="modal-buttons">
+          <button
+            className="button-cancel"
+            onClick={() => {
+              setShowDeleteEventModal("none");
+            }}>
+            Cancel
+          </button>
+          <button onClick={() => DeleteEvent()}>OK</button>
+        </div>
+      </DeleteEventModal>
+
       <Header clickNext={ClickNext} clickBack={ClickBack} />
 
       {isLoading ? (
@@ -241,6 +290,7 @@ function App() {
           calendarEvents={calendarEvents}
           onAddEvent={OpenAddEventModal}
           onUpdateEvent={OpenUpdateEventModal}
+          onDeleteEvent={OpenDeleteEventModal}
         />
       )}
     </>
@@ -248,3 +298,10 @@ function App() {
 }
 
 export default App;
+
+// TODO : Ajouter DeleteEventModal
+// TODO : Pouvoir bouger les Modals
+// TODO : Ajouter tutoriel
+// TODO : Filmer un gif du projet
+// TODO : CSS prefix
+// TODO : Host le projet

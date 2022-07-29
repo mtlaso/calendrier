@@ -3,9 +3,9 @@ import React from "react";
 import "../Styles/modal-styles.css";
 
 /**
- * Modal d'ajout d'évènement
+ * Modal de supression d'évènement
  */
-const AddEventModal = (props: { children: React.ReactNode; display: "block" | "none" }) => {
+const DeleteEventModal = (props: { children: React.ReactNode; display: "block" | "none" }) => {
   return (
     <div
       className="modal-container"
@@ -21,4 +21,4 @@ const AddEventModal = (props: { children: React.ReactNode; display: "block" | "n
   );
 };
 
-export default AddEventModal;
+export default DeleteEventModal;
