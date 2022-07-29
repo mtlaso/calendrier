@@ -16,14 +16,13 @@ Calendrier avec possibilité de créer des évènements
 
 1. Calendrier
 
-- Naviguer sur les différents mois/années qui existent
+   - Naviguer sur les différents mois/années qui existent
 
 2. Évènements
-
-- Créer un évènement sur le calendrier
-- Modifier un évènement sur le calendrier
-- Supprimer un évènement sur le calendrier
+   - Créer un évènement sur le calendrier
+   - Modifier un évènement sur le calendrier
+   - Supprimer un évènement sur le calendrier
 
 # Technologies
 
-Technologies utilisées : Html, Css, Javacscript, Nodejs, React, Recoil JS (state management), react-draggable
+Technologies utilisées : Html, Css, Javacscript, Typescript, Nodejs, React, Recoil JS (state management), react-draggable
