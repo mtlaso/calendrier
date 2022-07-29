@@ -1,6 +1,6 @@
 import React from "react";
 
-const Header = (props: { clickBack: () => void; clickNext: () => void }) => {
+const Header = (props: { clickBack: () => void; clickNext: () => void; showInfoModal: () => void }) => {
   return (
     <header>
       <p id="header-date" className="header-date">
@@ -10,16 +10,21 @@ const Header = (props: { clickBack: () => void; clickNext: () => void }) => {
         <button
           onClick={() => {
             props.clickBack();
-          }}
-        >
+          }}>
           back
         </button>
         <button
           onClick={() => {
             props.clickNext();
-          }}
-        >
+          }}>
           next
+        </button>
+        <button
+          className="info-icon"
+          onClick={() => {
+            props.showInfoModal();
+          }}>
+          Info
         </button>
       </div>
     </header>

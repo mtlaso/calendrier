@@ -51,10 +51,25 @@ header {
   width: 100vw;
 }
 
+header button.info-icon {
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+}
+
 hr {
   color: var(--color-grey);
 }
 
 header .header-date {
   color: var(--color-white);
+}
+
+code {
+  text-decoration: underline 0.1rem var(--color-black);
+}
+
+h2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
