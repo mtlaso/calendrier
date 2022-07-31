@@ -59,7 +59,6 @@ function App() {
   useEffect(() => {
     setIsLoading(true);
     const [_paddingDays, _days, _dateDisplay] = LoadCalendar(nav);
-    console.log(`loaded : ${_dateDisplay}`);
 
     setPaddingDays(_paddingDays as IWeekDays[]);
     setDays(_days as IDay[]);

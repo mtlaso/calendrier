@@ -35,9 +35,6 @@ export function LoadCalendar(nav: INav) {
   dt.setFullYear(nav.year);
   const year = dt.getFullYear();
 
-  console.log(`Nav - month : ${nav.month}, year : ${nav.year}`);
-  console.log(`Dt - month : ${month}, year : ${year}`);
-
   const firstDayOfMonth = new Date(year, month, 1);
   const numOfDaysInMonth = new Date(year, month + 1, 0).getDate();
 
