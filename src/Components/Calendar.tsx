@@ -56,6 +56,31 @@ const Calendar = ({
 
       {/* Afficher les jours sur le calendrier  */}
       {days.forEach((day, index) => {
+        /**
+         * Créer élément (day) qui sera affiché dans le calendrier
+         * @param id id de la div
+         * @returns L'élément div
+         */
+        const CreateDivElement = (id: string) => {
+          const dt = new Date();
+
+          // Créer élément
+          const div = document.createElement("div");
+
+          // Définir son id
+          div.id = `container-column-${day.date}`;
+
+          // Trouver si le ce jour est le jour actuel
+          if (day.isCurrentDay && day.month === dt.getMonth()) {
+            div.classList.add("container-column-box");
+            div.classList.add("current-day");
+          } else {
+            div.classList.add("container-column-box");
+          }
+
+          return div;
+        };
+
         // Créer les colonnes Sunday, Monday, Tuesday, etc.
         if (index === 0) {
           CreateSundayStructure();
@@ -68,8 +93,6 @@ const Calendar = ({
 
           // Afficher les padding days (les cases vides)
           for (let i = 0; i < paddingDays.length; i++) {
-            // alert(EWeekDays[paddingDays[i]]);
-            // let day = paddingDays[i];
             const day = paddingDays[i].slice(0, 3).toLocaleLowerCase(); // Trouver les 3 premières lettres du jours (en anglais)
 
             // Créer le padding day
@@ -84,14 +107,8 @@ const Calendar = ({
         // Afficher les dates
         switch (day.dayName) {
           case "Sunday":
-            const div = document.createElement("div");
-            div.id = `container-column-${day.date}`;
-            if (day.isCurrentDay) {
-              div.classList.add("container-column-box");
-              div.classList.add("current-day");
-            } else {
-              div.classList.add("container-column-box");
-            }
+            const div = CreateDivElement(`container-column-${day.date}`);
+
             div.ondblclick = () => onAddEvent(day.year, day.month, day.date);
             div.appendChild(document.createTextNode(day.date.toString()));
 
@@ -99,84 +116,43 @@ const Calendar = ({
             break;
 
           case "Monday":
-            const div1 = document.createElement("div");
-            div1.id = `container-column-${day.date}`;
-            if (day.isCurrentDay) {
-              div1.classList.add("container-column-box");
-              div1.classList.add("current-day");
-            } else {
-              div1.classList.add("container-column-box");
-            }
+            const div1 = CreateDivElement(`container-column-${day.date}`);
+
             div1.appendChild(document.createTextNode(day.date.toString()));
             div1.ondblclick = () => onAddEvent(day.year, day.month, day.date);
 
             document.getElementById(`container-column-mon`)?.appendChild(div1);
             break;
           case "Tuesday":
-            const div2 = document.createElement("div");
-            div2.id = `container-column-${day.date}`;
-            if (day.isCurrentDay) {
-              div2.classList.add("container-column-box");
-              div2.classList.add("current-day");
-            } else {
-              div2.classList.add("container-column-box");
-            }
+            const div2 = CreateDivElement(`container-column-${day.date}`);
             div2.appendChild(document.createTextNode(day.date.toString()));
             div2.ondblclick = () => onAddEvent(day.year, day.month, day.date);
 
             document.getElementById("container-column-tue")?.appendChild(div2);
             break;
           case "Wednesday":
-            const div3 = document.createElement("div");
-            div3.id = `container-column-${day.date}`;
-            if (day.isCurrentDay) {
-              div3.classList.add("container-column-box");
-              div3.classList.add("current-day");
-            } else {
-              div3.classList.add("container-column-box");
-            }
+            const div3 = CreateDivElement(`container-column-${day.date}`);
             div3.appendChild(document.createTextNode(day.date.toString()));
             div3.ondblclick = () => onAddEvent(day.year, day.month, day.date);
 
             document.getElementById(`container-column-wed`)?.appendChild(div3);
             break;
           case "Thursday":
-            const div4 = document.createElement("div");
-            div4.id = `container-column-${day.date}`;
-            if (day.isCurrentDay) {
-              div4.classList.add("container-column-box");
-              div4.classList.add("current-day");
-            } else {
-              div4.classList.add("container-column-box");
-            }
+            const div4 = CreateDivElement(`container-column-${day.date}`);
             div4.appendChild(document.createTextNode(day.date.toString()));
             div4.ondblclick = () => onAddEvent(day.year, day.month, day.date);
 
             document.getElementById("container-column-thu")?.appendChild(div4);
             break;
           case "Friday":
-            const div5 = document.createElement("div");
-            div5.id = `container-column-${day.date}`;
-            if (day.isCurrentDay) {
-              div5.classList.add("container-column-box");
-              div5.classList.add("current-day");
-            } else {
-              div5.classList.add("container-column-box");
-            }
+            const div5 = CreateDivElement(`container-column-${day.date}`);
             div5.appendChild(document.createTextNode(day.date.toString()));
             div5.ondblclick = () => onAddEvent(day.year, day.month, day.date);
 
             document.getElementById("container-column-fri")?.appendChild(div5);
             break;
           case "Saturday":
-            const div6 = document.createElement("div");
-            div6.id = `container-column-${day.date}`;
-            if (day.isCurrentDay) {
-              div6.classList.add("container-column-box");
-              div6.classList.add("current-day");
-            } else {
-              div6.classList.add("container-column-box");
-            }
+            const div6 = CreateDivElement(`container-column-${day.date}`);
             div6.appendChild(document.createTextNode(day.date.toString()));
             div6.ondblclick = () => onAddEvent(day.year, day.month, day.date);
 
@@ -191,11 +167,15 @@ const Calendar = ({
       {calendarEvents.forEach((event, index) => {
         // Trouver le mois où nous sommes
         // L'index 10 doit normalement toujours exister car il y a au minimum 28 jours d'un un mois
-        const currentMonth = days[10].month;
-        const currentEventMonth = event.date.split("-")[1];
-        const currentEventDay = event.date.split("-")[2];
+        const currentMonth = days[10].month; // Mois actuel
+        const currentEventMonth = event.date.split("-")[1]; // Mois de l'évènement
+        const currentEventDay = event.date.split("-")[2]; // Jour de l'évènement
 
-        // Retourne le titre abrégé d'un évènement
+        /**
+         * Retourne le titre abrégé d'un évènement
+         * @param title Titre de l'évènement
+         * @returns Le titre de l'évènement abrégé
+         */
         const SmallTitle = (title: string) => {
           if (title.trim().length > 50) {
             return `${event.title.slice(0, 30)}...`;
@@ -204,7 +184,7 @@ const Calendar = ({
           }
         };
 
-        // Afficher évènement sur le calendrier
+        // Afficher évènement sur le calendrier si le mois de l'évènement correspond au mois où nous sommes
         if (Number(currentEventMonth) === currentMonth) {
           const box = document.getElementById(`container-column-${currentEventDay}`);
 

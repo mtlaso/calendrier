@@ -8,7 +8,7 @@ export interface IEvent {
   id: string;
 
   /**
-   * La date
+   * La date de l'évènement.
    * Format: YYYY-MM-DD
    */
   date: string;
