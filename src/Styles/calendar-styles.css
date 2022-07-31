@@ -41,7 +41,7 @@
 
   height: 20vh;
   padding: 1rem 0 0 1rem;
-  border-bottom: 0.1rem solid var(--color-grey);
+  border-bottom: 0.1rem solid var(--color-lightgray);
   overflow: auto;
 }
 
@@ -58,7 +58,7 @@
 }
 
 .container-column-box-empty {
-  border-bottom: 0.1rem solid var(--color-grey);
+  border-bottom: 0.1rem solid var(--color-lightgray);
   /* background-color: var(--color-red); */
   height: 20vh;
 }
