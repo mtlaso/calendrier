@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 
 import "./Styles/calendar-styles.css";
@@ -22,7 +22,7 @@ import { eventsState } from "./State/event-state";
 import { MAX_LENGTH_EVENT } from "./config";
 
 function App() {
-  const dt = useRef(new Date()); // Empêcher de 're-render' à chaque fois
+  const dt = new Date(); // Empêcher de 're-render' à chaque fois
 
   const [showAddEventModal, setShowAddEventModal] = useState<"block" | "none">("none");
   const [addModalText, setAddModalText] = useState<string>("");
@@ -48,8 +48,8 @@ function App() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [nav, setNav] = useState({
     // Utilisé dans "LoadCalendar" pour gérer le changement de mois/année
-    month: dt.current.getMonth(),
-    year: dt.current.getFullYear(),
+    month: dt.getMonth(),
+    year: dt.getFullYear(),
   });
 
   // Charger les événements du calendrier (Recoil Js)
