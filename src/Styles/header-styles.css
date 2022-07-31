@@ -1,0 +1,26 @@
+header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: var(--color-black);
+  width: 100vw;
+}
+
+header button.info-icon {
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+}
+
+header hr {
+  color: var(--color-grey);
+}
+
+header .header-date {
+  color: var(--color-white);
+}

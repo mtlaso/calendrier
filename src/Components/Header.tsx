@@ -1,5 +1,7 @@
 import React from "react";
 
+import "../Styles/header-styles.css";
+
 const Header = (props: { clickBack: () => void; clickNext: () => void; showInfoModal: () => void }) => {
   return (
     <header>
