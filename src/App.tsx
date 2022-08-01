@@ -15,6 +15,7 @@ import UpdateEventModal from "./Components/UpdateEventModal";
 import GuideModal from "./Components/GuideModal";
 
 import { LoadCalendar } from "./Helpers/load-calendar";
+import { DateToMonthName } from "./Helpers/date-to-month-name";
 
 import { eventsState } from "./State/event-state";
 
@@ -115,7 +116,9 @@ function App() {
       createdAtDate: dt.getDate().toString(),
       createdAtMonth: dt.getMonth().toString(),
       createdAtYear: dt.getFullYear().toString(),
-      date: `${dateOfEvent?.year}-${dateOfEvent?.month}-${dateOfEvent?.date}`,
+      createdForDate: dateOfEvent?.date.toString()!,
+      createdForMonth: dateOfEvent?.month.toString()!,
+      createdForYear: dateOfEvent?.year.toString()!,
       title: addModalText.trim(),
       isCompleted: false,
     };
@@ -210,7 +213,8 @@ function App() {
         <div className="modal-content">
           <h1>Update event</h1>
           <p>
-            Event created on {updateModal?.createdAtMonth}/{updateModal?.createdAtDate}/{updateModal?.createdAtYear}
+            Event created on {DateToMonthName(Number(updateModal?.createdForMonth))}, {updateModal?.createdForDate}{" "}
+            {updateModal?.createdForYear}
           </p>
 
           <textarea

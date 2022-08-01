@@ -160,8 +160,13 @@ const Calendar = ({ dateDisplay, paddingDays, days, calendarEvents, onAddEvent, 
         // Trouver le mois où nous sommes
         // L'index 10 doit normalement toujours exister car il y a au minimum 28 jours d'un un mois
         const currentMonth = days[10].month; // Mois actuel
-        const currentEventMonth = event.date.split("-")[1]; // Mois de l'évènement
-        const currentEventDay = event.date.split("-")[2]; // Jour de l'évènement
+        const currentYear = days[10].year; // Mois actuel
+
+        // const currentEventMonth = event.date.split("-")[1]; // Mois de l'évènement
+        // const currentEventDate = event.date.split("-")[2]; // Jour de l'évènement
+
+        // console.log(`currentEventMonth: ${currentEventMonth}, currentEventDay: ${currentEventDate}`);
+        // console.log(`event.createdAtMonth: ${event.createdAtMonth}, createdAtDate: ${event.createdAtDate}`);
 
         /**
          * Retourne le titre abrégé d'un évènement
@@ -177,8 +182,8 @@ const Calendar = ({ dateDisplay, paddingDays, days, calendarEvents, onAddEvent, 
         };
 
         // Afficher évènement sur le calendrier si le mois de l'évènement correspond au mois où nous sommes
-        if (Number(currentEventMonth) === currentMonth) {
-          const box = document.getElementById(`container-column-${currentEventDay}`);
+        if (currentMonth === Number(event.createdForMonth) && currentYear === Number(event.createdForYear)) {
+          const box = document.getElementById(`container-column-${event.createdForDate}`);
 
           // Créer évènement
           const div = document.createElement("div");

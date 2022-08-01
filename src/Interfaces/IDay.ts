@@ -20,11 +20,6 @@ export interface IDay {
   year: number;
 
   /**
-   * La date en format en_us (MM/DD/YYYY)
-   */
-  dateString: string;
-
-  /**
    * Le nom du jour
    */
   dayName: IWeekDays;

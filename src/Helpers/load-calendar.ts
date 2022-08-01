@@ -52,7 +52,6 @@ export function LoadCalendar(nav: INav) {
       date: today.getDate(),
       month: today.getMonth(),
       year: today.getFullYear(),
-      dateString: `${month}/${i}/${year}`,
       dayName: weekdays[NumOfPaddingDays(today)],
       isCurrentDay: today.getDate() === realDay,
       isPadding: false,
@@ -65,11 +64,9 @@ export function LoadCalendar(nav: INav) {
   }
 
   // Afficher le mois (pour le header)
-  const dateDisplay = `${firstDayOfMonth.toLocaleString("default", {
+  const dateDisplay = `${firstDayOfMonth.toLocaleString("en-CA", {
     month: "long",
   })} ${year}`;
-
-  // alert("done");
 
   return [paddingDaysArr, daysArr, dateDisplay];
 }

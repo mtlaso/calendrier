@@ -23,10 +23,19 @@ export interface IEvent {
   createdAtYear: string;
 
   /**
-   * La date de l'évènement.
-   * Format: YYYY-MM-DD
+   * Pour qu'elle date l'évènement a été crée
    */
-  date: string;
+  createdForDate: string;
+
+  /**
+   * Pour qu'elle mois l'évènement a été crée
+   */
+  createdForMonth: string;
+
+  /**
+   * Pour qu'elle année l'évènement a été crée
+   */
+  createdForYear: string;
 
   /**
    * Le titre
