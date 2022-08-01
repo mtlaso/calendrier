@@ -12,7 +12,6 @@ import Header from "./Components/Header";
 import Calendar from "./Components/Calendar";
 import AddEventModal from "./Components/AddEventModal";
 import UpdateEventModal from "./Components/UpdateEventModal";
-import DeleteEventModal from "./Components/DeleteEventModal";
 import GuideModal from "./Components/GuideModal";
 
 import { LoadCalendar } from "./Helpers/load-calendar";
@@ -33,12 +32,8 @@ function App() {
   } | null>(null);
 
   const [showUpdateEventModal, setShowUpdateEventModal] = useState<"block" | "none">("none");
+  const [updateModal, setUpdateModal] = useState<IEvent | null>(null);
   const [updateModalText, setUpdateModalText] = useState<string>("");
-  const [eventIdToUpdate, setEventIdToUpdate] = useState<string | null>(null);
-
-  const [showDeleteEventModal, setShowDeleteEventModal] = useState<"block" | "none">("none");
-  const [deleteModalText, setDeleteModalText] = useState<string>("");
-  const [eventIdToDelete, setEventIdToDelete] = useState<string | null>(null);
 
   const [showInfoModal, setShowInfoModal] = useState<"flex" | "none">("none");
 
@@ -94,6 +89,18 @@ function App() {
     setShowAddEventModal("block");
   };
 
+  // Afficher modal UpdateEventModal
+  const OpenUpdateEventModal = (event: IEvent) => {
+    // Afficher texte
+    setUpdateModal(event);
+
+    // Texte du modal
+    setUpdateModalText(event.title);
+
+    // Afficher update modal
+    setShowUpdateEventModal("block");
+  };
+
   // Créer un évènement
   const CreateEvent = () => {
     // Valider texte
@@ -105,6 +112,9 @@ function App() {
     // Nouveau évènement à ajouter
     const newEvent: IEvent = {
       id: Math.random().toString(),
+      createdAtDate: dt.getDate().toString(),
+      createdAtMonth: dt.getMonth().toString(),
+      createdAtYear: dt.getFullYear().toString(),
       date: `${dateOfEvent?.year}-${dateOfEvent?.month}-${dateOfEvent?.date}`,
       title: addModalText.trim(),
       isCompleted: false,
@@ -120,82 +130,47 @@ function App() {
     setShowAddEventModal("none");
   };
 
-  // Afficher modal UpdateEventModal
-  const OpenUpdateEventModal = (eventId: string) => {
-    // Trouver évènement à modifier
-    const event = calendarEvents.find((event) => event.id === eventId);
-
-    // Afficher texte
-    setUpdateModalText(event?.title!);
-
-    // Sauvegarder id de l'évènement à modifier
-    setEventIdToUpdate(eventId);
-
-    // Afficher update modal
-    setShowUpdateEventModal("block");
-  };
-
   // Modifier un évènement
   const UpdateEvent = () => {
     // Valider texte
-    if (updateModalText.trim().length > MAX_LENGTH_EVENT || updateModalText.trim().length <= 0) {
+    if (updateModalText?.trim().length! > MAX_LENGTH_EVENT || updateModalText?.trim().length! <= 0) {
       alert(`Text length has to be less than ${MAX_LENGTH_EVENT} characters.`);
       return;
     }
 
-    // Trouver évènement à modifier
-    let event = calendarEvents.find((event) => event.id === eventIdToUpdate) as IEvent;
-    const index = calendarEvents.findIndex((event) => event.id === eventIdToUpdate);
+    // Trouver l'index de l'évènement à modifier
+    const index = calendarEvents.findIndex((event) => event.id === updateModal?.id);
 
-    event = {
-      ...event,
-      title: updateModalText.trim(),
+    // Évènement modifié
+    const updatedEvent = {
+      ...updateModal!,
+      title: updateModalText?.trim()!,
     };
 
     // Modifier l'évènement. Calendrier est rafréchit automatiquement grâce à "useRecoilState"
-    setCalendarEvents([...calendarEvents.slice(0, index), event, ...calendarEvents.slice(index + 1)]);
+    setCalendarEvents([
+      ...calendarEvents.slice(0, Number(index)),
+      updatedEvent,
+      ...calendarEvents.slice(Number(index) + 1),
+    ]);
+
+    // Effacer modal
+    setUpdateModal(null);
 
     // Effacer texte
     setUpdateModalText("");
-
-    // Effacer id de l'évènement à modifier
-    setEventIdToUpdate(null);
 
     // Fermer UpdateEventModal
     setShowUpdateEventModal("none");
   };
 
-  // Afficher modal DeleteEventModal
-  const OpenDeleteEventModal = (eventId: string) => {
-    // Trouver évènement à supprimer
-    const event = calendarEvents.find((event) => event.id === eventId);
-
-    // Afficher texte
-    setDeleteModalText(event?.title!);
-
-    // Sauvegarder id de l'évènement à supprimer
-    setEventIdToDelete(eventId);
-
-    // Afficher delete modal
-    setShowDeleteEventModal("block");
-  };
-
   // Supprimer un évènement
   const DeleteEvent = () => {
     // Trouver évènement à supprimer
-    const index = calendarEvents.findIndex((event) => event.id === eventIdToDelete);
+    const index = calendarEvents.findIndex((event) => event.id === updateModal?.id);
 
     // Supprimer l'évènement. Calendrier est rafréchit automatiquement grâce à "useRecoilState"
     setCalendarEvents([...calendarEvents.slice(0, index), ...calendarEvents.slice(index + 1)]);
-
-    // Effacer texte
-    setDeleteModalText("");
-
-    // Effacer id de l'évènement à supprimer
-    setEventIdToDelete(null);
-
-    // Fermer DeleteEventModal
-    setShowDeleteEventModal("none");
   };
 
   return (
@@ -234,6 +209,10 @@ function App() {
       <UpdateEventModal display={showUpdateEventModal}>
         <div className="modal-content">
           <h1>Update event</h1>
+          <p>
+            Event created on {updateModal?.createdAtMonth}/{updateModal?.createdAtDate}/{updateModal?.createdAtYear}
+          </p>
+
           <textarea
             value={updateModalText}
             placeholder={updateModalText}
@@ -246,6 +225,16 @@ function App() {
         </div>
         <hr />
         <div className="modal-buttons">
+          <button
+            className="button-delete"
+            onClick={(e) => {
+              if (window.confirm("Are you sure you want to delete this event?")) {
+                DeleteEvent();
+                setShowUpdateEventModal("none");
+              }
+            }}>
+            Delete
+          </button>
           <button
             className="button-cancel"
             onClick={() => {
@@ -261,25 +250,6 @@ function App() {
           </button>
         </div>
       </UpdateEventModal>
-
-      <DeleteEventModal display={showDeleteEventModal}>
-        <div className="modal-content">
-          <h1>Delete event</h1>
-          <p>Are you sure you want to delete this event?</p>
-          <p>Title : {deleteModalText}</p>
-        </div>
-        <hr />
-        <div className="modal-buttons">
-          <button
-            className="button-cancel"
-            onClick={() => {
-              setShowDeleteEventModal("none");
-            }}>
-            Cancel
-          </button>
-          <button onClick={() => DeleteEvent()}>OK</button>
-        </div>
-      </DeleteEventModal>
 
       <GuideModal display={showInfoModal}>
         <div className="modal-content">
@@ -313,8 +283,8 @@ function App() {
             </li>
             <li>
               <p>
-                To <code>delete</code> an event, right click or long press on mobile phones on any given event (in
-                blue).
+                To <code>delete</code> an event, click on any given event (in blue) and click the <code>delete</code>{" "}
+                button.
               </p>
             </li>
           </ul>
@@ -363,7 +333,6 @@ function App() {
           calendarEvents={calendarEvents}
           onAddEvent={OpenAddEventModal}
           onUpdateEvent={OpenUpdateEventModal}
-          onDeleteEvent={OpenDeleteEventModal}
         />
       )}
     </>

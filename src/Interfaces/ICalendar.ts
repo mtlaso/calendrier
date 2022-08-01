@@ -34,10 +34,5 @@ export interface ICalendar {
   /**
    * Fonction appelée lors de la modification d'un évènement
    */
-  onUpdateEvent: (eventId: string) => void;
-
-  /**
-   * Fonction appelée lors de la supression d'un évènement
-   */
-  onDeleteEvent: (eventId: string) => void;
+  onUpdateEvent: (event: IEvent) => void;
 }

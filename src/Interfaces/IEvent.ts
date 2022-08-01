@@ -8,6 +8,21 @@ export interface IEvent {
   id: string;
 
   /**
+   * Date de création de l'évènement
+   */
+  createdAtDate: string;
+
+  /**
+   * Mois de création de l'évènement
+   */
+  createdAtMonth: string;
+
+  /**
+   * Année de création de l'évènement
+   */
+  createdAtYear: string;
+
+  /**
    * La date de l'évènement.
    * Format: YYYY-MM-DD
    */
