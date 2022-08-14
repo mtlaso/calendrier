@@ -6,7 +6,7 @@
 
 # Calendrier
 
-Calendrier créer React, avec possibilité de créer des évènements.
+Calendrier créé React, avec possibilité de créer des évènements.
 
 # Utilisation
 
