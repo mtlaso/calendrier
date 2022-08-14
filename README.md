@@ -6,15 +6,14 @@
 
 # Calendrier
 
-Calendrier avec possibilité de créer des évènements
+Calendrier créer React, avec possibilité de créer des évènements.
 
 # Utilisation
 
 1. Installer nodejs (version récente)
 2. Cloner le projet
-3. Aller dans le dossier cloné
-4. Télécharger paquets nécessaires `npm install`
-5. Lancer l'application `npm start`
+3. Télécharger paquets nécessaires `npm install`
+4. Lancer l'application `npm start`
 
 # Fonctionnalités
 
