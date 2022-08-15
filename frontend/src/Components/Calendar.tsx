@@ -162,12 +162,6 @@ const Calendar = ({ dateDisplay, paddingDays, days, calendarEvents, onAddEvent, 
         const currentMonth = days[10].month; // Mois actuel
         const currentYear = days[10].year; // Mois actuel
 
-        // const currentEventMonth = event.date.split("-")[1]; // Mois de l'évènement
-        // const currentEventDate = event.date.split("-")[2]; // Jour de l'évènement
-
-        // console.log(`currentEventMonth: ${currentEventMonth}, currentEventDay: ${currentEventDate}`);
-        // console.log(`event.createdAtMonth: ${event.createdAtMonth}, createdAtDate: ${event.createdAtDate}`);
-
         /**
          * Retourne le titre abrégé d'un évènement
          * @param title Titre de l'évènement

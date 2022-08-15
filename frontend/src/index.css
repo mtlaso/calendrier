@@ -50,6 +50,16 @@ button.button-delete {
   background-color: var(--color-red);
 }
 
+a {
+  color: var(--color-white);
+  user-select: none;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline var(--color-green);
+}
+
 code {
   text-decoration: underline 0.1rem var(--color-black);
 }

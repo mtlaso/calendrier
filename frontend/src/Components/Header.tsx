@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import "../Styles/header-styles.css";
 
@@ -9,18 +10,23 @@ const Header = (props: { clickBack: () => void; clickNext: () => void; showInfoM
         loading...
       </p>
       <div>
+        {/* bouton back */}
         <button
           onClick={() => {
             props.clickBack();
           }}>
           back
         </button>
+
+        {/* bouton next */}
         <button
           onClick={() => {
             props.clickNext();
           }}>
           next
         </button>
+
+        {/* bouton info */}
         <button
           className="info-icon"
           onClick={() => {
@@ -28,6 +34,11 @@ const Header = (props: { clickBack: () => void; clickNext: () => void; showInfoM
           }}>
           Info
         </button>
+
+        {/* lien login */}
+        <Link className="link" to="/login">
+          login
+        </Link>
       </div>
     </header>
   );

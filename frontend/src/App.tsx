@@ -22,7 +22,7 @@ import { eventsState } from "./State/event-state";
 import { MAX_LENGTH_EVENT } from "./config";
 
 function App() {
-  const dt = new Date(); // Empêcher de 're-render' à chaque fois
+  const dt = new Date();
 
   const [showAddEventModal, setShowAddEventModal] = useState<"block" | "none">("none");
   const [addModalText, setAddModalText] = useState<string>("");
@@ -178,6 +178,14 @@ function App() {
 
   return (
     <>
+      <Header
+        clickNext={ClickNext}
+        clickBack={ClickBack}
+        showInfoModal={() => {
+          setShowInfoModal("flex");
+        }}
+      />
+
       <AddEventModal display={showAddEventModal}>
         <div className="modal-content">
           <h1>Add event for {`${dateOfEvent?.month}/${dateOfEvent?.date}/${dateOfEvent?.year}`}</h1>
@@ -319,14 +327,6 @@ function App() {
         </div>
       </GuideModal>
 
-      <Header
-        clickNext={ClickNext}
-        clickBack={ClickBack}
-        showInfoModal={() => {
-          setShowInfoModal("flex");
-        }}
-      />
-
       {isLoading ? (
         <span>loading...</span>
       ) : (
@@ -344,5 +344,3 @@ function App() {
 }
 
 export default App;
-
-// TODO : Host le projet
