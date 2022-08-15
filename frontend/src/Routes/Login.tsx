@@ -135,6 +135,9 @@ const Login = () => {
         <Link to="/register" className="link">
           Create an account
         </Link>
+        <Link to="/" className="link">
+          Go back
+        </Link>
         <button type="submit">Login</button>
       </form>
     </main>
