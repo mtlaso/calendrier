@@ -1,0 +1,79 @@
+:root {
+  --max-width: 20vw;
+}
+
+.container-auth {
+  background-color: var(--color-black);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.container-auth h1,
+.container-auth h2,
+.container-auth p {
+  color: var(--color-white);
+}
+
+.container-auth h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  max-width: var(--max-width);
+  width: 20vw;
+  text-align: center;
+}
+
+.container-auth p {
+  margin-bottom: 1rem;
+  max-width: var(--max-width);
+  text-align: justify;
+  color: var(--color-lightergrey);
+}
+
+.container-auth form {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 1rem;
+  width: 100%;
+  max-width: var(--max-width);
+  padding: 2rem;
+  background-color: var(--color-lightblack);
+  border-radius: 1rem;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.container-auth form label {
+  margin: 0.5rem 0 0.5rem 0;
+  color: var(--color-lightergrey);
+}
+
+.container-auth form input {
+  background-color: var(--color-lightblack);
+  color: var(--color-white);
+  padding: 0.5rem;
+  border: none;
+  border-bottom: 1px var(--color-white) solid;
+}
+
+.container-auth form input::placeholder {
+  color: var(--color-white);
+}
+
+.container-auth form a {
+  margin-top: 1rem;
+}
+
+.container-auth form button {
+  margin-left: 0;
+  margin-top: 1rem;
+}
+
+.container-auth li.error {
+  color: var(--color-red);
+  list-style: none;
+  margin-top: 0.3rem;
+}
