@@ -1,5 +1,13 @@
-console.log("Hello you : ", Add(1, 2));
+import Express from "express";
 
-function Add(x: number, y: number): number {
-  return x + y;
-}
+const app = Express();
+const port = process.env.PORT || 4000;
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
+
+app.listen(port, () => {
+  console.log(`🌎 Expressjs : http://localhost:${port}/`);
+});
