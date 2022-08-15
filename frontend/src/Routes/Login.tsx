@@ -6,7 +6,7 @@ import "../Styles/auth-page-styles.css";
 import { AUTH_VALIDATION } from "../config";
 
 type ErrorType = {
-  input: string;
+  field: string;
   errors: string[];
 };
 
@@ -33,7 +33,7 @@ const Login = () => {
       setErrors((e) => [
         ...e!,
         {
-          input: "username",
+          field: "username",
           errors: [
             `Username must be between ${AUTH_VALIDATION.username_min_length} and ${AUTH_VALIDATION.username_max_length} characters.`,
           ],
@@ -46,7 +46,7 @@ const Login = () => {
       setErrors((e) => [
         ...e!,
         {
-          input: "username",
+          field: "username",
           errors: [
             `Password must be between ${AUTH_VALIDATION.password_min_length} and ${AUTH_VALIDATION.password_max_length} characters.`,
           ],
@@ -97,7 +97,7 @@ const Login = () => {
         />
 
         {/* Afficher erreurs avec username */}
-        {errors && errors[0].input === "username" && (
+        {errors && errors[0].field === "username" && (
           <ul>
             {errors[0].errors.map((error) => {
               return (
@@ -119,6 +119,18 @@ const Login = () => {
           required
           onChange={(e) => setPassword(e.target.value)}
         />
+        {/* Afficher erreurs avec password */}
+        {errors && errors[1].field === "password" && (
+          <ul>
+            {errors[0].errors.map((error) => {
+              return (
+                <li key={error} className="error">
+                  {error}
+                </li>
+              );
+            })}
+          </ul>
+        )}
 
         <Link to="/register" className="link">
           Create an account
