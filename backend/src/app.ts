@@ -8,5 +8,5 @@ const port = process.env.PORT || 4000;
 app.use("/auth", authRouter);
 
 app.listen(port, () => {
-  console.log(`🌎 Expressjs : http://localhost:${port}/`);
+  console.log(`🌎 Server : http://localhost:${port}/`);
 });

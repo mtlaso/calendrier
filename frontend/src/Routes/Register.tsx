@@ -11,9 +11,9 @@ type ErrorType = {
 };
 
 /**
- * Page de connexion
+ * Page de création de compte
  */
-const Login = () => {
+const Register = () => {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [errors, setErrors] = React.useState<ErrorType[] | null>(null);
@@ -64,7 +64,7 @@ const Login = () => {
     // Envoyer formulaire
     try {
       const body = JSON.stringify({ username, password });
-      const req = await fetch("http://localhost:4000/auth/login", {
+      const req = await fetch("http://localhost:4000/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -82,8 +82,8 @@ const Login = () => {
 
   return (
     <main className="container-auth">
-      <h1>Login your account</h1>
-      <p>Login to your account to be able to save and sync your events across all your devices.</p>
+      <h1>Create your account</h1>
+      <p>Create your account to be able to save and sync your events across all your devices.</p>
       <form onSubmit={HandleForm}>
         <label htmlFor="username">Username</label>
         <input
@@ -134,16 +134,16 @@ const Login = () => {
           </ul>
         )}
 
-        <Link to="/register" className="link">
-          Create an account
+        <Link to="/login" className="link">
+          Already have an account?
         </Link>
         <Link to="/" className="link">
-          Go back
+          Go to calendar
         </Link>
-        <button type="submit">Login</button>
+        <button type="submit">Register</button>
       </form>
     </main>
   );
 };
 
-export default Login;
+export default Register;
